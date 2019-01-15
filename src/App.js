@@ -8,7 +8,7 @@ const API_KEY = "fd8771a60529e6ced346016748dec8cb";
 
 class App extends Component {
   state = {
-    temperature: undefined,
+    temperature: 0,
     city: undefined,
     country: undefined,
     pressure: undefined,
@@ -21,7 +21,7 @@ class App extends Component {
     const country = e.target.elements.country.value;
     const api_call = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${API_KEY}&units=metric`);
     const data = await api_call.json();
-    if (city && country) {
+    if (data.name && data.sys.country) {
       this.setState({
         temperature: data.main.temp,
         city: data.name,
@@ -33,7 +33,7 @@ class App extends Component {
     }
     else {
       this.setState({
-        temperature: undefined,
+        temperature: 0,
         city: undefined,
         country: undefined,
         pressure: undefined,
